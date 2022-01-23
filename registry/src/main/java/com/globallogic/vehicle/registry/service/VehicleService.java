@@ -1,10 +1,9 @@
 package com.globallogic.vehicle.registry.service;
 
 import com.globallogic.vehicle.registry.controller.VehicleSO;
-import com.globallogic.vehicle.registry.entities.Part;
 import com.globallogic.vehicle.registry.entities.Vehicle;
 import com.globallogic.vehicle.registry.exceptions.RegistryResourceNotFound;
-import com.globallogic.vehicle.registry.repository.RegistryRepository;
+import com.globallogic.vehicle.registry.repository.VehicleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,16 +13,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class RegistryService {
+public class VehicleService {
 
-    @Autowired
-    private RegistryRepository registryRepository;
+    private final VehicleRepository vehicleRepository;
 
-    @Autowired
-    protected ModelMapper modelMapper;
+    protected final ModelMapper modelMapper;
 
     public VehicleSO get(String vin) {
-        Vehicle found = registryRepository.findByVin(vin);
+        Vehicle found = vehicleRepository.findByVin(vin);
 
         if (found == null) {
             throw new RegistryResourceNotFound("Vehicle with given VIN does not exist.");
@@ -35,11 +32,11 @@ public class RegistryService {
     public VehicleSO create(VehicleSO so) {
         Vehicle vehicle = modelMapper.map(so, Vehicle.class);
 
-        return modelMapper.map(registryRepository.save(vehicle), VehicleSO.class);
+        return modelMapper.map(vehicleRepository.save(vehicle), VehicleSO.class);
     }
 
     public List<VehicleSO> getAll() {
-        List<Vehicle> vehicles = registryRepository.findAll();
+        List<Vehicle> vehicles = vehicleRepository.findAll();
         return vehicles
                 .stream()
                 .map(v -> modelMapper.map(v, VehicleSO.class))
@@ -47,18 +44,22 @@ public class RegistryService {
     }
 
     public Vehicle updateByVin(VehicleSO so) {
-        Vehicle vehicleFromDb = registryRepository.findByVin(so.getVin());
+        Vehicle vehicleFromDb = vehicleRepository.findByVin(so.getVin());
 
         Vehicle requestVehicle = modelMapper.map(so, Vehicle.class);
-        requestVehicle.setId(vehicleFromDb.getId());
         requestVehicle.setCreationDate(vehicleFromDb.getCreationDate());
         requestVehicle.setVersion(vehicleFromDb.getVersion());
 
-        return registryRepository.save(requestVehicle);
+        return vehicleRepository.save(requestVehicle);
     }
 
     @Transactional
     public void deleteByVin(String vin) {
-        registryRepository.deleteByVin(vin);
+        vehicleRepository.deleteByVin(vin);
+    }
+
+    public VehicleService(VehicleRepository vehicleRepository, ModelMapper modelMapper) {
+        this.vehicleRepository = vehicleRepository;
+        this.modelMapper = modelMapper;
     }
 }
