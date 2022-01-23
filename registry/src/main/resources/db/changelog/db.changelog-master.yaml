@@ -7,28 +7,23 @@ databaseChangeLog:
             tableName: vehicle
             columns:
               - column:
-                  name: id
-                  type: int
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
                   name: vin
                   type: varchar(17)
+                  autoIncrement: fasle
                   constraints:
-                    nullable: false
-                    unique: true
+                    - primaryKey: true
+                    - nullable: false
+                    - unique: true
               - column:
                   name: brand
                   type: varchar(25)
                   constraints:
-                    nullable: false
+                    - nullable: false
               - column:
                   name: model
                   type: varchar(100)
                   constraints:
-                    nullable: false
+                    - nullable: false
               - column:
                   name: production_year
                   type: int
@@ -37,8 +32,54 @@ databaseChangeLog:
                   type: timestamp
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
-                    nullable: false
+                    - nullable: false
               - column:
                   name: version
                   type: int
                   defaultValue: 0
+
+  - changeSet:
+      id: create_parts_relation
+      author: sdp
+      changes:
+        - createTable:
+            tableName: part
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    - primaryKey: true
+                    - nullable: false
+              - column:
+                  name: vehicle_vin
+                  type: varchar(17)
+              - column:
+                  name: manufacturer
+                  type: varchar(30)
+              - column:
+                  name: creation_date
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: version
+                  type: int
+                  defaultValue: 0
+
+  - changeSet:
+      id: add_fk_constraint_vehicles_parts
+      author: liquibase-docs
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: vehicle_vin
+            baseTableName: part
+            baseTableSchemaName: public
+            constraintName: fk_vehicles_parts
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: vin
+            referencedTableName: vehicle
+            referencedTableSchemaName: public

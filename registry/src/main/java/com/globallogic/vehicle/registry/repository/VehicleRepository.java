@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RegistryRepository extends JpaRepository<Vehicle, Integer> {
 
     Vehicle findByVin(String vin);
+    void deleteByVin(String vin);
 }
