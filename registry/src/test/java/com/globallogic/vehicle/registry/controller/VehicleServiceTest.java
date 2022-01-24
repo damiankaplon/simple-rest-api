@@ -41,6 +41,7 @@ public class VehicleServiceTest {
 
     @BeforeEach
     public void setUp() {
+        //GIVEN FOR EVERY TEST
         stubVehicleSo = new VehicleSO();
         stubVehicleSo.setProductionYear(2019);
         stubVehicleSo.setVin("12345678910");
@@ -60,6 +61,7 @@ public class VehicleServiceTest {
 
     @Test
     public void testGetByVin() {
+       //GIVEN
         doReturn(stubVehicle).when(vehicleRepository).findByVin("12345678910");
 
         //WHEN
@@ -78,6 +80,7 @@ public class VehicleServiceTest {
 
     @Test
     public void testCreate() {
+        //GIVEN
         doReturn(stubVehicle).when(vehicleRepository).save(ArgumentMatchers.any(Vehicle.class));
         //WHEN & THEN
         assertThat(vehicleService.create(stubVehicleSo)).isEqualTo(stubVehicleSo);
