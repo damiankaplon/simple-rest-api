@@ -7,16 +7,15 @@
         <artifactId>restsdp</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.globallogic.vehicle</groupId>
-    <artifactId>registry</artifactId>
+    <artifactId>vehicleregistry</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>registry</name>
+    <name>vehicleregistry</name>
     <description>Sample vehicle registry service</description>
 
     <properties>
         <java.version>11</java.version>
-        <maven.compiler.source>1.11</maven.compiler.source>
-        <maven.compiler.target>1.11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <swagger-annotations.version>1.6.0</swagger-annotations.version>
         <modelmapper.version>2.3.5</modelmapper.version>
@@ -107,6 +106,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                        <mainClass>com.globallogic.vehicle.registry.RegistryApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

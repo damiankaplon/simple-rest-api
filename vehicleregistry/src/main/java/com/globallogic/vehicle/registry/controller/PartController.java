@@ -29,6 +29,9 @@ public class PartController {
         return partService.getPart(id);
     }
 
+    @ApiOperation(value = "Creates part")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Accepted")})
     @PostMapping
     public PartSO createPart(@RequestBody PartSO so) {
         return partService.addNewPart(so);
