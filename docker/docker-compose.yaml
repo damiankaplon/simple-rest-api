@@ -14,6 +14,11 @@ services:
     ports:
       - "5432:5432"
 
+  sonarqube:
+    image: sonarqube:latest
+    ports:
+      - "9000:9000"
+
   phppgadmin:
     image: bitnami/phppgadmin:7
     environment:
@@ -22,7 +27,7 @@ services:
       - POSTGRESQL_USER=postgres
       - POSTGRESQL_PASSWORD=postgres
     ports:
-      - "9090:9090"
+      - "8080:8080"
 
 volumes:
   restsdp-data:
