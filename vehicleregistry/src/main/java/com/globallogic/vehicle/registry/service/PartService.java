@@ -4,7 +4,7 @@ import com.globallogic.vehicle.registry.controller.PartSO;
 import com.globallogic.vehicle.registry.entities.Part;
 import com.globallogic.vehicle.registry.entities.Vehicle;
 import com.globallogic.vehicle.registry.exceptions.NoSuchPartException;
-import com.globallogic.vehicle.registry.exceptions.NoSuchVinException;
+import com.globallogic.vehicle.registry.exceptions.VinException;
 import com.globallogic.vehicle.registry.repository.PartRepository;
 import com.globallogic.vehicle.registry.repository.VehicleRepository;
 import org.modelmapper.ModelMapper;
@@ -49,7 +49,7 @@ public class PartService {
         updatedPart.setCreationDate(partToUpdate.get().getCreationDate());
 
         Vehicle vehicle = vehicleRepository.findByVin(so.getVehicleVin());
-        if (vehicle == null) throw new NoSuchVinException("Vehicle with that vin not found");
+        if (vehicle == null) throw new VinException("Vehicle with that vin not found");
         updatedPart.setVehicle(vehicle);
 
         return modelMapper.map(partRepository.save(updatedPart), PartSO.class);

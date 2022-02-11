@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class RegistryExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {RegistryException.class, NoSuchVinException.class})
+    @ExceptionHandler(value = {RegistryException.class})
     public ResponseEntity<ErrorResponse> handleRegistryException(RegistryException ex, WebRequest request) {
         ErrorResponse errorMessage = new ErrorResponse();
         errorMessage.setTimestamp(LocalDateTime.now());

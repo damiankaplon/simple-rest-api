@@ -3,9 +3,11 @@ package com.globallogic.vehicle.registry.service;
 import com.globallogic.vehicle.registry.controller.VehicleSO;
 import com.globallogic.vehicle.registry.entities.Vehicle;
 import com.globallogic.vehicle.registry.exceptions.RegistryResourceNotFound;
+import com.globallogic.vehicle.registry.exceptions.VinException;
 import com.globallogic.vehicle.registry.repository.VehicleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
