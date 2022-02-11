@@ -1,5 +1,11 @@
 server:
   port: 9999
+  ssl:
+    key-store: classpath:vehicleregistry.jks
+    key-store-type: pkcs12
+    key-store-password: password
+    key-password: password
+    key-alias: vehicleregistry
 
 spring:
   liquibase:
