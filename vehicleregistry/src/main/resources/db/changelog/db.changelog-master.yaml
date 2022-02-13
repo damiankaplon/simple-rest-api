@@ -83,3 +83,17 @@ databaseChangeLog:
             referencedColumnNames: vin
             referencedTableName: vehicle
             referencedTableSchemaName: public
+
+  - changeSet:
+      id: add_OEM_part_column
+      author: sdp
+      changes:
+        - addColumn:
+            tableName: part
+            columns:
+              - column:
+                  name: oem
+                  type: varchar(50)
+
+
+
