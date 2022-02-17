@@ -12,6 +12,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     change-log: classpath:/db/changelog/db.changelog-master.yaml
     url: jdbc:postgresql://localhost:5432/registry
+    default-schema: public
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/registry

@@ -1,4 +1,4 @@
-package com.globallogic.vehicle.registry;
+package com.globallogic.vehicle.registry.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

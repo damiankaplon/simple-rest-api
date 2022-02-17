@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: user-roles-relations
+      author: sdp
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  type: varchar(12)
+                  constraints:
+                    - primaryKey: true
+                    - nullabe: false
+                    - unique: true
+              - column:
+                  name: password
+                  type: varchar
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    - nullable: false
+
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: username
+                  type: varchar(12)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: authority
+                  type: varchar(12)
+                  constraints:
+                    - nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: username
+            baseTableName: authorities
+            baseTableSchemaName: public
+            constraintName: fk_in_auths-to-users
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: username
+            referencedTableName: users
+            referencedTableSchemaName: public

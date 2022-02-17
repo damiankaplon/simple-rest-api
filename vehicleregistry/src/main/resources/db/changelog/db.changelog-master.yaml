@@ -1,4 +1,6 @@
 databaseChangeLog:
+  - include:
+      file: /db/changelog/db.security-changelog.yaml
   - changeSet:
       id: create_vehicle_table
       author: sdp
@@ -9,7 +11,7 @@ databaseChangeLog:
               - column:
                   name: vin
                   type: varchar(17)
-                  autoIncrement: fasle
+                  autoIncrement: false
                   constraints:
                     - primaryKey: true
                     - nullable: false
@@ -94,6 +96,3 @@ databaseChangeLog:
               - column:
                   name: oem
                   type: varchar(50)
-
-
-
